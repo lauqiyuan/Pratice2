@@ -15,13 +15,14 @@ class  MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
         findViewById<Button>(R.id.done_button).setOnClickListener {
             addNickname(it)
         }
-
-
+        findViewById<TextView>(R.id.nickname_text).setOnClickListener {
+            updateNickname(it)
+        }
     }
+
     private fun addNickname(view: View) {
         val editText = findViewById<EditText>(R.id.nickname_edit)
         val nicknameTextView = findViewById<TextView>(R.id.nickname_text)
@@ -29,10 +30,10 @@ class  MainActivity : AppCompatActivity() {
         editText.visibility = View.GONE
         view.visibility = View.GONE
         nicknameTextView.visibility = View.VISIBLE
-        setContentView(R.layout.activity_main)
-
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+
     }
     private fun updateNickname (view: View) {
         val editText = findViewById<EditText>(R.id.nickname_edit)
@@ -40,12 +41,9 @@ class  MainActivity : AppCompatActivity() {
         editText.visibility = View.VISIBLE
         doneButton.visibility = View.VISIBLE
         view.visibility = View.GONE
-        findViewById<TextView>(R.id.nickname_text).setOnClickListener {
-            updateNickname(it)
-            editText.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(editText, 0)
-    }
+        editText.requestFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editText, 0)
     }
 
 }
